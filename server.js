@@ -2,7 +2,7 @@
 const express = require('express');
 // we'll use morgan to log the HTTP layer
 const morgan = require('morgan');
-// we'll use body-parser's json() method to 
+// we'll use body-parser's json() method to
 // parse JSON data sent in requests to this app
 const bodyParser = require('body-parser');
 
@@ -17,7 +17,7 @@ const app = express();
 app.use(morgan('common'));
 
 // we're going to add some items to ShoppingList
-// so there's some data to look at. Note that 
+// so there's some data to look at. Note that
 // normally you wouldn't do this. Usually your
 // server will simply expose the state of the
 // underlying database.
@@ -25,6 +25,17 @@ ShoppingList.create('beans', 2);
 ShoppingList.create('tomatoes', 3);
 ShoppingList.create('peppers', 4);
 
+Recipes.create(
+  'chocolate cake', ['cake mix', 'chocolate', 'frosting']
+);
+
+Recipes.create(
+  'boiled eggs', ['eggs', 'water', 'salt', 'pepper']
+);
+
+app.get('/recipes', function(req, res) {
+  res.json(recipes.get());
+});
 // when the root of this route is called with GET, return
 // all current ShoppingList items by calling `ShoppingList.get()`
 app.get('/shopping-list', (req, res) => {
